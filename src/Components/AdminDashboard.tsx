@@ -1,13 +1,23 @@
 import { Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
+
 
 function AdminDashboard() {
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem('Atoken');
+    navigate('/');
+  };
+
+
   return (
     <div className="d-flex justify-content-center align-items-center" style={{minHeight:'100vh'}}>
       <Card className="shadow" style={{ width: "80rem", height: "40rem" }}>
         <Card.Header className="d-flex justify-content-between">
           <h2>Dashboard</h2>
-          <Button className="bg-transparent text-black border-black">
+          <Button className="bg-transparent text-black border-black" onClick={logout}>
             Logout
           </Button>
         </Card.Header>

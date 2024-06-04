@@ -8,8 +8,10 @@ interface User {
   role: string;
 }
 
-function CustomerList({ accessToken }) {
+function CustomerList() {
   const [user, setUser] = useState<User[]>([]);
+  const accessToken = localStorage.getItem('admin_token');
+
 
   useEffect(() => {
     apiFunction();
@@ -37,7 +39,7 @@ function CustomerList({ accessToken }) {
       className="d-flex justify-content-center align-items-center"
       style={{ minHeight: "100vh" }}
     >
-      <div className="card" style={{ width: "24rem" }}>
+      <div className="card" style={{ width: "44rem" }}>
         <div className="card-header fs-3 d-flex  justify-content-between align-items-center ">
           <h4 className="">USER LIST</h4>
         <Link to={'/admindashboard'} className="text-decoration-none"><span title="Dashboard"><i className="bi bi-house-fill fs-2 opacity-50"></i></span></Link>

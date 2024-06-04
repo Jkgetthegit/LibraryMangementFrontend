@@ -8,11 +8,11 @@ interface Book {
   bookname: string;
 }
 
-function BookList({ accessToken }) {
+function BookList() {
   // State variables
   const [books, setBooks] = useState<Book[]>([]);
   const [bookname, setBookname] = useState(""); 
-  console.log('$$$$$$',accessToken);
+  const accessToken = localStorage.getItem('admin_token');
 
   useEffect(() => {
     getBookApi();
@@ -109,10 +109,10 @@ function BookList({ accessToken }) {
               ))}
             </ul>
           </div>
-          <div className="d-flex mt-4">
+          <div className="d-flex mt-4" style={{gap:'10px'}}>
             <input
               type="text"
-              className="form-control d-inline-block mr-2"
+              className="form-control d-inline-block border-1 border-secondary "
               placeholder="Enter book name"
               value={bookname}
               onChange={(e) => setBookname(e.target.value)}

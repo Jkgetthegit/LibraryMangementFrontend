@@ -9,10 +9,15 @@ import AdminDashboard from "./Components/AdminDashboard";
 import BookList from "./Components/BookList";
 import CustomerList from "./Components/CustomerList";
 import BorrwedBooks from "./Components/BorrwedBooks";
+import UserProtectedRoute from "./Components/UserProtectedRoute";
+import AdminProtectedRoute from "./Components/AdminProtectedRoute";
 
 function Routes() {
-  const user_token = localStorage.getItem('user_token');
-  const admin_token = localStorage.getItem('admin_token');
+  const user_token = localStorage.getItem("user_token");
+  const admin_token = localStorage.getItem("admin_token");
+
+  console.log(user_token);
+  console.log(admin_token);
 
   return (
     <div>
@@ -20,15 +25,76 @@ function Routes() {
         <Router>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/userdashboard" element={<UserDashboard  />} />
-          <Route path="/bookdetails" element={<BookDetails accessToken  = {user_token}/>} />
-          <Route path="/userprofile" element={<UserProfile token = {user_token} />} />
-          <Route path="/borrowbook" element={<BorrowBook accessToken  = {user_token}/>} />
+
+          <Route
+            path="/userdashboard"
+            element={
+              <UserProtectedRoute>
+                <UserDashboard />
+              </UserProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/bookdetails"
+            element={
+              <UserProtectedRoute>
+                <BookDetails />
+              </UserProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/userprofile"
+            element={
+              <UserProtectedRoute>
+                <UserProfile />
+              </UserProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/borrowbook"
+            element={
+              <UserProtectedRoute>
+                <BorrowBook />
+              </UserProtectedRoute>
+            }
+          />
+
           {/* adminroutes */}
-          <Route path="/admindashboard" element={<AdminDashboard />} />
-          <Route path="/booklist" element={<BookList accessToken  = {admin_token}/>} />
-          <Route path="/customerlist" element={<CustomerList accessToken  = {admin_token}/>} />
-          <Route path="/borrowedbooks" element={<BorrwedBooks accessToken  = {admin_token}/>} />
+          <Route
+            path="/admindashboard"
+            element={
+              <AdminProtectedRoute>
+                <AdminDashboard />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/booklist"
+            element={
+              <AdminProtectedRoute>
+                <BookList/>
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/customerlist"
+            element={
+              <AdminProtectedRoute>
+                <CustomerList  />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/borrowedbooks"
+            element={
+              <AdminProtectedRoute>
+                <BorrwedBooks  />
+              </AdminProtectedRoute>
+            }
+          />
         </Router>
       </BrowserRouter>
     </div>

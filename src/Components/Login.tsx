@@ -12,6 +12,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate(); 
+  localStorage.removeItem('user_token')
+  localStorage.removeItem('admin_token')
 
   const api_function = async (username : string, password : string) => {
     try {
@@ -40,20 +42,18 @@ function Login() {
         const data = await api_function(userName, password);
         console.log(data);
         const { token } = data;
-        const tokenData = jwtDecode(token)
+        const tokenData:any = jwtDecode(token)
         console.log(tokenData);
         // console.log("Token stored in localStorage:", localStorage.getItem("token"));
         if(tokenData.role === 'user'){
         localStorage.setItem("user_token", token);
         console.log('User token',localStorage.getItem("user_token"));
-        
           navigate('/userdashboard')
         }
         else{
         localStorage.setItem("admin_token", token);
         console.log('Admin token',localStorage.getItem("admin_token"));
-
-          navigate('/admindashboard')
+        navigate('/admindashboard')
         } 
   
       } catch (error) {
